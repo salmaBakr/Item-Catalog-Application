@@ -152,7 +152,7 @@ def gdisconnect():
         return response
 
 @app.route('/')
-def home_page():
+def homePage():
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits)
 						for x in xrange(32))
 	login_session['state'] = state
@@ -162,27 +162,56 @@ def home_page():
 	# return jsonify(Items=[i.serialize for i in items])
 	return render_template('home.html', categories = categories, items = items)
 
-@app.route('/hello')
-def hello():
-	return "hello"
+@app.route('/items/<int:item_id>/')
+def showItem(item_id):
+    items = session.query(Item).filter_by(id=item_id)
+    return render_template('showItem.html', item = items[0])    
 
-@app.route('/category/<int:category_id>/new/', methods=['GET', 'POST'])
+@app.route('/category/<int:category_id>/')
+def showCategory(category_id):
+    categories = session.query(Item).filter_by(category_id=category_id)
+    return jsonify(categories=[i.serialize for i in categories])
+
+@app.route('/items/<int:category_id>/new/', methods=['GET', 'POST'])
 def newItem(category_id):
     if request.method == 'POST':
-        newItem = Item(title=request.form['name'], category_id=category_id)
+        newItem = Item(title=request.form['name'],
+            description = request.form['description'], category_id=category_id)
         session.add(newItem)
         session.commit()
-        return redirect(url_for('home_page', category_id=category_id))
+        return redirect(url_for('homePage', category_id=category_id))
     else:
         return render_template('newItem.html', category_id=category_id)
 
-@app.route('/category/<int:category_id>/<int:item_id>/edit/')
+@app.route('/items/<int:category_id>/<int:item_id>/edit/', methods=['GET', 'POST'])
 def editItem(category_id, item_id):
-    return "page to edit a menu item. Task 2 complete!"
+    if 'username' not in login_session:
+        return redirect('/login')
+    editedItem = session.query(Item).filter_by(id=item_id).one()
+    category = session.query(Category).filter_by(id=category_id).one()
+    if request.method == 'POST':
+        if request.form['title']:
+            editedItem.title = request.form['title']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        session.add(editedItem)
+        session.commit()
+        flash('Menu Item Successfully Edited')
+        return redirect(url_for('homePage'))
+    else:
+        return render_template('editItem.html', category_id=category_id, item_id=item_id, item=editedItem)
 
 @app.route('/category/<int:category_id>/<int:item_id>/delete/')
 def deleteItem(category_id, item_id):
-    return "page to delete a menu item. Task 3 complete!"
+       # if 'username' not in login_session:
+       #  return redirect('/login')
+    itemToDelete = session.query(
+        Item).filter_by(id=item_id).one()
+    session.delete(itemToDelete)
+    flash('%s Successfully Deleted' % itemToDelete.title)
+    session.commit()
+    return redirect(url_for('homePage'))
+
 
 if __name__ == '__main__':
    app.secret_key = 'EBBg_NaOVJgxrVDhGizFfxZQ'

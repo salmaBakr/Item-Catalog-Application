@@ -1,18 +1,35 @@
+<head>
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand">Item Catalog Application</a>
-  <div id="signinButton">
-  <span class="g-signin"
-    data-scope="openid email"
-    data-clientid="13140951618-15nik769cellkubaqnjk5facdib2dh4d.apps.googleusercontent.com"
-    data-redirecturi="postmessage"
-    data-accesstype="offline"
-    data-cookiepolicy="single_host_origin"
-    data-callback="signInCallback"
-    data-approvalprompt="force">
-  </span>
-</div>
-</nav>
+  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+
+<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+
+
+</head>
+
+
+<body>
+
+
+<!-- GOOGLE PLUS SIGN IN-->
+
+
+          <div id="signinButton">
+          <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="13140951618-15nik769cellkubaqnjk5facdib2dh4d.apps.googleusercontent.com"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+          </span>
+        </div>
+
 <div id="result"></div>
 
 <script>
@@ -34,9 +51,9 @@ function signInCallback(authResult) {
         if (result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
          setTimeout(function() {
-          window.location.href = "/hello";
+          window.location.href = "/";
          }, 4000);
-          
+
 
       } else if (authResult['error']) {
 
@@ -46,6 +63,10 @@ function signInCallback(authResult) {
          }
 
       }
-      
+
   }); } }
 </script>
+<!--END GOOGLE PLUS SIGN IN -->
+  </body>
+
+  </html>
