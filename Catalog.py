@@ -121,6 +121,7 @@ def gconnect():
 
     # DISCONNECT - Revoke a current user's token and reset their login_session
 
+
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get('access_token')
@@ -151,6 +152,8 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+
+
 @app.route('/')
 def homePage():
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -160,33 +163,36 @@ def homePage():
 	items = session.query(Item)
 	# .filter_by(category_id=category.id)
 	# return jsonify(Items=[i.serialize for i in items])
-	return render_template('home.html', categories = categories, items = items)
+	return render_template('home.html', categories = categories, items = items, STATE=state
+    , login_session = login_session)
 
 @app.route('/items/<int:item_id>/')
 def showItem(item_id):
     items = session.query(Item).filter_by(id=item_id)
-    return render_template('showItem.html', item = items[0])    
+    return render_template('showItem.html', item = items[0], login_session = login_session)    
 
 @app.route('/category/<int:category_id>/')
 def showCategory(category_id):
-    categories = session.query(Item).filter_by(category_id=category_id)
-    return jsonify(categories=[i.serialize for i in categories])
+    items = session.query(Item).filter_by(category_id=category_id)
+    category = session.query(Category).filter_by(id=category_id).one()
+    return render_template('showCategory.html', items = items,
+        login_session = login_session, category=category)  
 
 @app.route('/items/<int:category_id>/new/', methods=['GET', 'POST'])
 def newItem(category_id):
     if request.method == 'POST':
         newItem = Item(title=request.form['name'],
-            description = request.form['description'], category_id=category_id)
+            description = request.form['description'], user_id = login_session['gplus_id'], category_id=category_id)
         session.add(newItem)
         session.commit()
-        return redirect(url_for('homePage', category_id=category_id))
+        return redirect(url_for('homePage', category_id=category_id
+    , login_session = login_session))
     else:
-        return render_template('newItem.html', category_id=category_id)
+        return render_template('newItem.html', category_id=category_id
+    , login_session = login_session)
 
 @app.route('/items/<int:category_id>/<int:item_id>/edit/', methods=['GET', 'POST'])
 def editItem(category_id, item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     editedItem = session.query(Item).filter_by(id=item_id).one()
     category = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
@@ -199,7 +205,8 @@ def editItem(category_id, item_id):
         flash('Menu Item Successfully Edited')
         return redirect(url_for('homePage'))
     else:
-        return render_template('editItem.html', category_id=category_id, item_id=item_id, item=editedItem)
+        return render_template('editItem.html', category_id=category_id,
+         item_id=item_id, item=editedItem)
 
 @app.route('/category/<int:category_id>/<int:item_id>/delete/')
 def deleteItem(category_id, item_id):
@@ -214,6 +221,6 @@ def deleteItem(category_id, item_id):
 
 
 if __name__ == '__main__':
-   app.secret_key = 'EBBg_NaOVJgxrVDhGizFfxZQ'
+   app.secret_key = '7GKJX-nRJ8PybE-bdIP9Y5tR'
    app.debug = True
    app.run(host='0.0.0.0', port=5000)

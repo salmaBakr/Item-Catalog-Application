@@ -1,36 +1,27 @@
-<html>
-	<head>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-		  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<script src="//apis.google.com/js/platform.js?onload=start"> </script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-		<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-	</head>
-	<body>
-		{% include "partials/login.html" %}
-		<div class="content">
-		  		<div class="row">
-		  		<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 project">
-		  			<h1>categories</h1>
-		  			{% for c in categories %}
-					<div>
-						<a href="{{url_for('showCategory', category_id = c.id )}}">{{c.name}}</a>
-					</div>
-					{% endfor %}
-		  		</div>
+{% extends "main.html" %}
+{% block content %}
+	<div class="content">
+	  		<div class="row">
+	  		<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 project">
+	  			<h1>categories</h1>
+	  			{% for c in categories %}
+				<div>
+					<a href="{{url_for('showCategory', category_id = c.id )}}">{{c.name}}</a>
+				</div>
+				{% endfor %}
+	  		</div>
 
-		  		<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 project"  >
-		  			<h1>Latest Items</h1>
-					{% for i in items %}
-					<div>
-						<a href="{{url_for('showItem', item_id = i.id )}}">{{i.title}}</a>
-					</div>
-					{% endfor %}
-					<a href="{{url_for('newItem', category_id = 1)}}">Add Item</a>
-		  		</div>
-		  		</div>
-		</div>
-	</body>
-
-</html>
+	  		<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 project"  >
+	  			<h1>Latest Items</h1>
+				{% for i in items %}
+				<div>
+					<a href="{{url_for('showItem', item_id = i.id )}}">{{i.title}}</a>
+				</div>
+				{% endfor %}
+			{% if 'username' in login_session: %}
+				<a href="{{url_for('newItem', category_id = 1)}}">Add Item</a>         
+        	{% endif %}
+	  		</div>
+	  		</div>
+	</div>
+{% endblock %}

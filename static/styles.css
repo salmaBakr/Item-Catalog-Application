@@ -1,66 +1,75 @@
 body {
-    font-family: sans-serif;
-    background-color: #333333
-}
-
-h1,
-h2,
-h3,
-h4 {
-    color: #ffffff;
-}
-
-h1,
-h2 {
-    font-family: 'georgia', serif;
-    margin: 0;
+    background-color: rgb(250, 248, 248);
 }
 
 h1 {
-    border-bottom: 2px solid #eee;
+    font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    color: #51453B;
+    line-height: 60px;
+    font-weight: 300;
 }
 
 h2 {
-    font-size: 1.2em;
+    font-size: 24px;
+    color: #42C3C9;
+    line-height: 29px;
 }
 
-p,
-dd,
-dt {
-    /*color: #cccccc;*/
+h3 {
+    font-size: 18px;
+    color: #4A4A4A;
+    line-height: 23px;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-    font-size: .75em;
+p {
+    font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #7B7573;
+    line-height: 24px;
+    font-weight: 400;
+ }
+
+ strong {
+    font-size: 16px;
+    color: #7B7573;
+    line-height: 24px;
+ }
+
+ a {
+    font-size: 14px;
+    color: #0093B9;
+    line-height: 17px;
 }
 
-.pane {
-    position: absolute;
-    left: 25%;
-    border: 2px solid;
-    border-radius: 25px;
-    padding: 5px;
-    margin: 5px;
-    border-color: #999999;
-    background-color: #333333
+.container-fluid {
+    background-color: #85144b;
 }
 
-.header {
-    left: 50%;
-    text-align: center;
+.navbarText {
+    color: wheat;
 }
 
-.name {
-    width: 50%;
+.userPic {
+    height: 19px;
+    width: 20px;
     display: inline-block;
-    float: left;
 }
 
-.description {}
-.editdeletepane {}
+.g-signin:hover { 
+    cursor: pointer;
+}
 
-.flash {
-    background: #cee5f5;
+.padding-top {
+    padding-top: 30px;
+}
+
+.padding-bottom {
+    padding-bottom: 30px;
+}
+.margin-right {
+    margin-right: 30px;
+}
+.padding-none {
+    padding: 0;
 }

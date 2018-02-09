@@ -1,17 +1,11 @@
-<html>
-<body>
+{% extends "main.html" %}
+{% block content %}
 <h1> New Item </h1>
-
 <form action="{{url_for('newItem', category_id=category_id )}}" method = 'POST'>
-
-<p>Name:</p>
-
-<input type='text' size='30' name='name'>
-<label for="exampleFormControlTextarea1">Description</label>
-<textarea type ="text" class="form-control" id="description" name="description" rows="3"></textarea>
-<input type='submit' value='Create'>
-
+   <label for="exampleFormControlTextarea1">Name</label><br>
+   <input type='text' size='30' name='name'><br>
+   <label for="exampleFormControlTextarea1">Description</label>
+   <textarea type ="text" class="form-control" id="description" name="description" rows="3"></textarea>
+   <input type='submit' value='Create'>
 </form>
-
-</body>
-</html>
+{% endblock %}
