@@ -6,4 +6,18 @@
 			<a href="{{url_for('showItem', item_id = i.id )}}">{{i.title}}</a>
 		</div>
 	{% endfor %}
+
+<div class = 'flash'>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      
+    <ul>
+    {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
+
+</div>
 {% endblock %}

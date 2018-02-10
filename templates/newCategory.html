@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+{% block content %}
+<h1> New Category </h1>
+<form action="{{url_for('newCategory' )}}" method = 'POST'>
+   <label for="exampleFormControlTextarea1">Name</label><br>
+   <input type='text' size='30' name='name'><br>
+   <input type='submit' value='Create'>
+</form>
+{% endblock %}

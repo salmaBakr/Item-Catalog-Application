@@ -9,6 +9,7 @@
          {% if 'username' in login_session: %}
          <img class="userPic" style ="display: inline-block;" src="{{login_session['picture']}}">
          <span class="navbarText">{{login_session['email']}}</span>
+         <a href="{{url_for('logout')}}">Logout</a>
          {% else %}
          <span class="glyphicon glyphicon-home g-signin navbarText" aria-hidden="true"
             data-scope="openid email"

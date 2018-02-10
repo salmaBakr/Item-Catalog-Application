@@ -9,7 +9,8 @@
 					<a href="{{url_for('showCategory', category_id = c.id )}}">{{c.name}}</a>
 				</div>
 				{% endfor %}
-	  		</div>
+				<a href="{{url_for('newCategory', category_id = 1)}}">Add Category</a>	  	
+			</div>
 
 	  		<div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 project"  >
 	  			<h1>Latest Items</h1>
@@ -18,7 +19,7 @@
 					<a href="{{url_for('showItem', item_id = i.id )}}">{{i.title}}</a>
 				</div>
 				{% endfor %}
-			{% if 'username' in login_session: %}
+			{% if 'username' in login_session %}
 				<a href="{{url_for('newItem', category_id = 1)}}">Add Item</a>         
         	{% endif %}
 	  		</div>

@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{item.title}}</h1>
 <p>{{item.description}}</p>
-	{% if 'username' in login_session: %}
+	{% if 'username' in login_session %}
 	<a href="{{url_for('editItem', item_id = item.id, category_id = item.category_id)}}">
 		<button class="btn btn-primary" id="new-menu-item">
 			Edit 
@@ -14,4 +14,14 @@
 		</button>
 	</a>
     {% endif %}
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      
+    <ul>
+    {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
 {% endblock %}
