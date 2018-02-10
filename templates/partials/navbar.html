@@ -2,14 +2,14 @@
    <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header navbar-brand ">
-         <span class="navbarText">Catalog</span>
+         <a href="{{url_for('homePage')}}" class="navbarText">Catalog</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="nav navbar-nav navbar-right navbar-brand">
          {% if 'username' in login_session: %}
          <img class="userPic" style ="display: inline-block;" src="{{login_session['picture']}}">
          <span class="navbarText">{{login_session['email']}}</span>
-         <a href="{{url_for('logout')}}">Logout</a>
+         <a class="navbarText" href="{{url_for('logout')}}">  Logout</a>
          {% else %}
          <span class="glyphicon glyphicon-home g-signin navbarText" aria-hidden="true"
             data-scope="openid email"

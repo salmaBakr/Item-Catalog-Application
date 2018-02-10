@@ -48,6 +48,9 @@ p {
 
 .navbarText {
     color: wheat;
+    font-weight: 600;
+    font-size: 1em;
+    margin-left: 10px;
 }
 
 .userPic {
